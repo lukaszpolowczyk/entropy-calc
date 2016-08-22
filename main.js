@@ -37,7 +37,7 @@ baseEl.addEventListener("input", (e)=> {
 		} else {
 			base = value*1;
 		}
-		if (base > 0) {
+		if (base > 1) {
 			baseEl.removeAttribute("data-incorrect-value");
 		} else {
 			baseEl.setAttribute("data-incorrect-value", "");
