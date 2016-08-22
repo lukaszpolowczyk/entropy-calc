@@ -152,7 +152,12 @@ function numberCount () {
 	
 	entropyEl.innerHTML = entropy;
 	
-	var maxEntropy = indeterminacy(1/number)*number;
+	var noZeroEventsObs = randomEventsObs.filter((randomEvent)=>{
+		return randomEvent.probability !== 0;
+	})
+	var noZeroEventsObsLength = noZeroEventsObs.length;
+	
+	var maxEntropy = indeterminacy(1/noZeroEventsObsLength)*noZeroEventsObsLength;
 	maxEntropy = round(maxEntropy, 5);
 	
 	maxEntropyEl.innerHTML = maxEntropy;
