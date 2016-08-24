@@ -62,6 +62,8 @@
 				font-family: "Noto Sans";
 				border-bottom-width: 2px;
 				font-size: 12px;
+				padding: 1px 0;
+				border-bottom: 2px solid transparent;
 			}
 			
 			.fields[data-bad-datas] .limit-exceeded {
@@ -84,30 +86,20 @@
 				
 				min-width: 15px;
 				text-align: right;
+				padding: 1px 0;
+				border-bottom: 2px solid transparent;
 			}
 		</style>
 	</head>
 
 	<body>    
 		<div class="body">
+			<div class="szpion-container"></div>
 			
-			<div class="fields">
-				<div class="random-events">
-				</div>
-				<div class="active-result normal-text">
-					Entropia, ilość informacji: <span class="entropy normal-text"></span>
-					<span class="events-number normal-text">
-						, liczba zdarzeń: <input type="text" class="number">
-					</span>
-					<span class="base-number normal-text">
-						, podstawa logarytmu: <input type="text" class="base">
-					</span>
-					.
-					<span class="limit-exceeded"></span><br/>
-					Maksymalna entripia: <span class="max-entropy"></span>
-				</div>
-			</div>
-			<div class="results-list"></div>
+
+			<div class="entropys-container"></div>
+
+			<div class="results-list" hidden></div>
 			<div style="padding-top: 20px; color: silver;">Wersja Beta, oczywiste blędy, wiele funkcji w przyszłosci.</div>
 		</div>
 
@@ -122,8 +114,27 @@
 					<input type="text" class="probability"> <button >Powiel wydarzenie i dziel prawdopodobieństwo</button>pozostałość z prawdopodobieństwo zdarzenia (od 0 włącznie do 1 włącznie)
 				</div>
 			</template>
+			<template id="fields">
+				<div class="fields">
+					<div class="random-events">
+					</div>
+					<div class="active-result normal-text">
+						Entropia, ilość informacji: <span class="entropy normal-text"></span>
+						<span class="events-number normal-text">
+							, liczba możliwych zdarzeń: <input type="text" class="number">
+						</span>
+						<span class="base-number normal-text">
+							, podstawa logarytmu: <input type="text" class="base">
+						</span>
+						.
+						<span class="limit-exceeded"></span><br/>
+						Maksymalna entropia: <span class="max-entropy"></span>
+					</div>
+				</div>
+			</template>
 		</span>
-		<script src="shannon.js"></script>
-		<script src="main.js"></script>
+		<span class="scripts" hidden>
+			<script data-main="scripts/main" src="scripts/libs/require.js"></script>
+		</span>
 	</body>
 </html>
