@@ -1,0 +1,81 @@
+
+.random-events {
+	margin-bottom: 20px;
+}
+
+.fields {
+	padding: 20px 10px 10px 10px;
+	box-shadow: 0 0 4px silver;
+}
+
+.random-event {
+	display: flex;
+}
+
+input {
+	background-image: none;
+	border: 1px solid rgb(201, 197, 197);
+	background-color: white;
+
+	width: 55px;
+	padding: 1px 5px;
+	border-width: 0 0 2px 0;
+
+	margin: 0px 4px;
+
+
+	font-family: "Noto Sans";
+	border-bottom-width: 2px;
+	font-size: 12px;
+}
+input:focus {
+	border-color: #7d7d7d;
+}
+
+:focus {
+	outline: 0;
+}
+
+.probability[data-equal-value] {
+	color: #5a5a5a;
+}
+
+input[data-incorrect-value] {
+	border-color: #f54242;
+}
+
+.description {
+	width: 215px;
+}
+
+.normal-text {
+	font-family: "Noto Sans";
+	border-bottom-width: 2px;
+	font-size: 12px;
+	padding: 1px 0;
+	border-bottom: 2px solid transparent;
+}
+
+.fields[data-bad-datas] .limit-exceeded {
+	color: #f54242;
+}
+
+.fields {
+	border: 5px dotted transparent;
+}
+.fields[data-bad-datas] {
+	border-color: #f54242;
+}
+
+.random-events {
+	counter-reset: pseudoListNumbering;
+}
+.random-event::before {
+	counter-increment: pseudoListNumbering;
+	content: counter(pseudoListNumbering, decimal) ". ";
+
+	min-width: 15px;
+	text-align: right;
+	padding: 1px 0;
+	border-bottom: 2px solid transparent;
+}

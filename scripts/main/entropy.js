@@ -64,6 +64,40 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 			});
 		});
 
+		this.numberEl.addEventListener("input", ()=> {
+			if (this.numberEl.value !== this.noZeroEventsObsLength) {
+				this.numberEl.setAttribute("title", "Wartość niezapisana, [Enter] - zatwierdź wartość");
+				this.numberEl.setAttribute("style", "color: rgb(249, 181, 44); font-weight: bold; border-bottom-color: rgb(249, 181, 44)");
+			}
+		});
+		this.numberEl.addEventListener("keydown", (e)=> {
+			if (e.keyCode === 13) {
+				var numberVal = this.numberEl.value;
+				var restNumberVal = numberVal - this.noZeroEventsObsLength;
+
+				for (var i = 1; i<=restNumberVal; i++) {
+					var newRandomEvent = new RandomEvent(this);
+					this.randomEventsObs.push(newRandomEvent);
+					this.noZeroEventsObs.push(newRandomEvent);
+					this.randomEventsEl.appendChild(newRandomEvent.randomEventEl);
+				}
+
+				for (var ix = numberVal-restNumberVal-1; ix>=numberVal; ix--) {
+					//let newRandomEvent = new RandomEvent(this);
+					var oldRandomEvent = this.noZeroEventsObs[ix];
+					this.noZeroEventsObs.splice(ix, 1);
+
+					var index = this.randomEventsObs.indexOf(oldRandomEvent);
+					this.randomEventsObs.splice(index, 1);
+
+					this.randomEventsEl.removeChild(oldRandomEvent.randomEventEl);
+				}
+				this.numberCount();
+				this.numberEl.removeAttribute("title");
+				this.numberEl.removeAttribute("style");
+			}
+		});
+
 		this.randomEventsObs.push(new RandomEvent(this));
 
 		this.randomEventsObs.forEach( (randomEvent)=> {
@@ -170,15 +204,15 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 
 		this.entropyEl.innerHTML = this.entropy;
 
-		var noZeroEventsObs = this.randomEventsObs.filter((randomEvent)=>{
+		this.noZeroEventsObs = this.randomEventsObs.filter((randomEvent)=>{
 			return randomEvent.probability !== 0;
 		});
-		var noZeroEventsObsLength = noZeroEventsObs.length;
+		this.noZeroEventsObsLength = this.noZeroEventsObs.length;
 
-		this.number = noZeroEventsObsLength;
+		this.number = this.noZeroEventsObsLength;
 		this.numberEl.value = this.number;
 
-		var maxEntropy = libs.indeterminacy(1/noZeroEventsObsLength, this.base)*noZeroEventsObsLength;
+		var maxEntropy = libs.round(libs.indeterminacy(1/this.noZeroEventsObsLength, this.base), this.displayRound)*this.noZeroEventsObsLength;
 		maxEntropy = libs.round(maxEntropy, this.displayRound);
 
 		this.maxEntropyEl.innerHTML = maxEntropy;
