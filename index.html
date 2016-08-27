@@ -15,7 +15,9 @@
 
 	<body>    
 		<div class="body">
-			<div class="szpion-container"></div>
+			<div class="szpion-container" style="margin-bottom: 40px;">
+				<style scoped>@import url(style/szpion.css);</style>
+			</div>
 			
 
 			<div class="entropys-container">
@@ -53,6 +55,34 @@
 						<span class="limit-exceeded"></span><br/>
 						Maksymalna entropia: <span class="max-entropy"></span>
 					</div>
+				</div>
+			</template>
+			
+			<!-- Szpion templates -->
+			
+			<template id="szpion">
+				<div class="szpion field">
+					<div class="questions-block">
+						<div class="common-interest">
+							<div class="common-text">Wspólny interes</div>
+							<div class="common-questions"></div>
+						</div>
+						<div class="foreign-interest">
+							<div class="foreign-text">Obcy interes</div>
+							<div class="foreign-questions"></div>
+						</div>
+					</div>
+					<div class="result normal-text">Odpowiedz na własne pytania. :)</div>
+				</div>
+			</template>
+			<template id="question">
+				<div class="question random-event normal-text">
+					<span class="answers">
+						<span class="answer-true">Prawda</span>/
+						<span class="answer-false">Fałsz</span>/
+						<span class="no-answer">Brak odpowiedzi</span>
+					</span>
+					<input type="text" title="prawdopodobieństwo zdarzenia - można wpisać od 0 włącznie do 1 włącznie" class="probability"> – <input type="text" class="description" placeholder="Opis i/lub nazwa zdarzenia losowego"> <span class="measure-uncertainty normal-text"></span>.
 				</div>
 			</template>
 		</span>

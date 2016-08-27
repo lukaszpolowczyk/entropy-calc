@@ -1,8 +1,31 @@
+
+.questions-block {
+	display: flex;
+}
+
+.common-questions {
+	border-right: 1px solid silver;
+	margin-right: 20px;
+	padding-right: 20px;
+}
+
+.question[data-answer="true"] .answer-true {
+	background-color: yellow;
+}
+
+.question[data-answer="false"] .answer-false {
+	background-color: yellow;
+}
+
+.question[data-answer=""] .no-answer {
+	background-color: yellow;
+}
+
 .random-events {
 	margin-bottom: 20px;
 }
 
-.fields {
+.field {
 	padding: 20px 10px 10px 10px;
 	box-shadow: 0 0 4px silver;
 }
@@ -55,18 +78,21 @@ input[data-incorrect-value] {
 	border-bottom: 2px solid transparent;
 }
 
-.fields[data-bad-datas] .limit-exceeded {
+.field[data-bad-datas] .limit-exceeded {
 	color: #f54242;
 }
 
-.fields {
+.field {
 	border: 5px dotted transparent;
 }
-.fields[data-bad-datas] {
+.field[data-bad-datas] {
 	border-color: #f54242;
 }
 
-.random-events {
+.common-questions {
+	counter-reset: pseudoListNumbering;
+}
+.foreign-questions {
 	counter-reset: pseudoListNumbering;
 }
 .random-event::before {
