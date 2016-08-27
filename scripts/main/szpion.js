@@ -70,10 +70,10 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 		result = 1 - result;
 		
 		if (result > .5 && result <= 1) {
-			this.resultEl.innerHTML = `Szpion. Na ${result*100} %`;
+			this.resultEl.innerHTML = `Szpion. Na ${result*100}%`;
 		} else
 		if (result >= 0 && result <= .5) {
-			this.resultEl.innerHTML = `Szpion. Na ${result*100} %`;
+			this.resultEl.innerHTML = `Szpion. Na ${result*100}%`;
 		} else {
 			this.resultEl.innerHTML = "jakiś błąd w programie.";
 		}
