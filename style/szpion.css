@@ -114,7 +114,17 @@ input[data-incorrect-value] {
 	border-color: silver #efefef;*/
 }
 
+.common-text {
+	margin: 0px 0px 6px;
+	font-size: 16px;
+	font-family: serif;
+}
 
+.fotter {
+	margin: 0px 0px 6px;
+	font-size: 16px;
+	font-family: serif;
+}
 
 
 .field[data-bad-datas] .limit-exceeded {
