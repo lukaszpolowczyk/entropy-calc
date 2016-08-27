@@ -10,104 +10,21 @@
 		
 		<link href='' rel='stylesheet' type='text/css'>
 
-
 		<link rel="shortcut icon" href="favicon.ico">
-		<style>
-			.random-events {
-				margin-bottom: 20px;
-			}
-			
-			.fields {
-				padding: 20px 10px 10px 10px;
-				box-shadow: 0 0 4px silver;
-			}
-			
-			.random-event {
-				display: flex;
-			}
-			
-			input {
-				background-image: none;
-				border: 1px solid rgb(201, 197, 197);
-				background-color: white;
-				
-				width: 55px;
-				padding: 1px 5px;
-				border-width: 0 0 2px 0;
-				
-				margin: 0px 4px;
-				
-
-				font-family: "Noto Sans";
-				border-bottom-width: 2px;
-				font-size: 12px;
-			}
-			input:focus {
-				border-color: #7d7d7d;
-			}
-			
-			.probability[data-equal-value] {
-				color: #5a5a5a;
-			}
-			
-			input[data-incorrect-value] {
-				border-color: #f54242;
-			}
-			
-			.description {
-				width: 215px;
-			}
-			
-			.normal-text {
-				font-family: "Noto Sans";
-				border-bottom-width: 2px;
-				font-size: 12px;
-			}
-			
-			.fields[data-bad-datas] .limit-exceeded {
-				color: #f54242;
-			}
-			
-			.fields {
-				border: 5px dotted transparent;
-			}
-			.fields[data-bad-datas] {
-				border-color: #f54242;
-			}
-			
-			.random-events {
-				counter-reset: pseudoListNumbering;
-			}
-			.random-event::before {
-				counter-increment: pseudoListNumbering;
-				content: counter(pseudoListNumbering, decimal) ". ";
-				
-				min-width: 15px;
-				text-align: right;
-			}
-		</style>
 	</head>
 
 	<body>    
 		<div class="body">
-			
-			<div class="fields">
-				<div class="random-events">
-				</div>
-				<div class="active-result normal-text">
-					Entropia, ilość informacji: <span class="entropy normal-text"></span>
-					<span class="events-number normal-text">
-						, liczba zdarzeń: <input type="text" class="number">
-					</span>
-					<span class="base-number normal-text">
-						, podstawa logarytmu: <input type="text" class="base">
-					</span>
-					.
-					<span class="limit-exceeded"></span><br/>
-					Maksymalna entripia: <span class="max-entropy"></span>
-				</div>
+			<div class="szpion-container" style="margin-bottom: 40px;">
+				<style scoped>@import url(style/szpion.css);</style>
 			</div>
-			<div class="results-list"></div>
+			
+
+			<div class="entropys-container">
+				<style scoped>@import url(style/entropy.css);</style>
+			</div>
+
+			<div class="results-list" hidden></div>
 			<div style="padding-top: 20px; color: silver;">Wersja Beta, oczywiste blędy, wiele funkcji w przyszłosci.</div>
 		</div>
 
@@ -122,8 +39,55 @@
 					<input type="text" class="probability"> <button >Powiel wydarzenie i dziel prawdopodobieństwo</button>pozostałość z prawdopodobieństwo zdarzenia (od 0 włącznie do 1 włącznie)
 				</div>
 			</template>
+			<template id="fields">
+				<div class="fields">
+					<div class="random-events">
+					</div>
+					<div class="active-result normal-text">
+						Entropia, ilość informacji: <span class="entropy normal-text"></span>
+						<span class="events-number normal-text">
+							, liczba możliwych zdarzeń: <input type="text" class="number">
+						</span>
+						<span class="base-number normal-text">
+							, podstawa logarytmu: <input type="text" class="base">
+						</span>
+						.
+						<span class="limit-exceeded"></span><br/>
+						Maksymalna entropia: <span class="max-entropy"></span>
+					</div>
+				</div>
+			</template>
+			
+			<!-- Szpion templates -->
+			
+			<template id="szpion">
+				<div class="szpion field">
+					<div class="questions-block">
+						<div class="common-interest">
+							<div class="common-text">Wspólny interes</div>
+							<div class="common-questions"></div>
+						</div>
+						<div class="foreign-interest">
+							<div class="foreign-text">Obcy interes</div>
+							<div class="foreign-questions"></div>
+						</div>
+					</div>
+					<div class="result normal-text">Odpowiedz na własne pytania. :)</div>
+				</div>
+			</template>
+			<template id="question">
+				<div class="question random-event normal-text">
+					<span class="answers">
+						<span class="answer-true">Prawda</span>/
+						<span class="answer-false">Fałsz</span>/
+						<span class="no-answer">Brak odpowiedzi</span>
+					</span>
+					<input type="text" title="prawdopodobieństwo zdarzenia - można wpisać od 0 włącznie do 1 włącznie" class="probability"> – <input type="text" class="description" placeholder="Opis i/lub nazwa zdarzenia losowego"> <span class="measure-uncertainty normal-text"></span>.
+				</div>
+			</template>
 		</span>
-		<script src="shannon.js"></script>
-		<script src="main.js"></script>
+		<span class="scripts" hidden>
+			<script data-main="scripts/main" src="scripts/libs/require.js"></script>
+		</span>
 	</body>
 </html>
