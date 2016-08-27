@@ -75,7 +75,7 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 		if (result >= 0 && result <= .5) {
 			this.resultEl.innerHTML = `Szpion. Na ${result*100}%`;
 		} else {
-			this.resultEl.innerHTML = "jakiś błąd w programie.";
+			this.resultEl.innerHTML = "Brakujace dane lub jakiś błąd w programie.";
 		}
 		
 		if (this.commonNoAnswersObsLength === 0) {
