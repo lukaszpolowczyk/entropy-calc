@@ -80,15 +80,32 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 
 		var foreignAnswersVal = foreignAnswerVal * this.foreignTrueAnswersObsLength;
 		
+		
 		// result
-		var result = commonAnswersVal * foreignAnswersVal;
-		result = 1 - result;
+		var preResult = commonAnswersVal * foreignAnswersVal;
+		var result = 1 - preResult;
+		
+
+		var commonNumbers = ``;
+		for (var i = 1; i < this.commonTrueAnswersObsLength; i++) {
+			commonNumbers += `${libs.round(commonAnswerVal, 3)} + `;
+		}
+		commonNumbers += libs.round(commonAnswerVal, 3);
+		var foreignNumbers = ``;
+		for (var ix = 1; ix < this.foreignTrueAnswersObsLength; ix++) {
+			foreignNumbers += `${libs.round(foreignAnswerVal, 3)} + `;
+		}
+		foreignNumbers += libs.round(foreignAnswerVal, 3);
+
+		var numbersAll = `(${commonNumbers}) * (${foreignNumbers}) = ${libs.round(commonAnswersVal, 3)} * ${libs.round(foreignAnswersVal, 3)} = ${libs.round(preResult, 3)} <br/> 1 - ${libs.round(preResult, 3)} = ${libs.round(result, 3)}`;
+
+		
 		
 		if (result > .5 && result <= 1) {
-			this.resultEl.innerHTML = `Wynik: Szpion. Na ${result*100}%`;
+			this.resultEl.innerHTML = `Wynik: Szpion na ${libs.round(result*100, 3)}%. <br/>${numbersAll}`;
 		} else
 		if (result >= 0 && result <= .5) {
-			this.resultEl.innerHTML = `Wynik: Szpion. Na ${result*100}%`;
+			this.resultEl.innerHTML = `Wynik: Szpion na ${libs.round(result*100, 3)}%. <br/>${numbersAll}`;
 		} else {
 			this.resultEl.innerHTML = "Wynik: Brakujace dane lub jakiś błąd w programie.";
 		}
