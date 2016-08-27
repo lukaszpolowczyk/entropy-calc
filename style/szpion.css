@@ -20,9 +20,14 @@
 }
 
 .common-questions {
-	border-right: 1px solid silver;
-	margin-right: 20px;
-	padding-right: 20px;
+}
+
+.separator {
+	width: 1px;
+	background: silver none repeat scroll 0% 0%;
+	align-items: flex-end;
+	margin: 25px 20px 30px;
+	height: auto;
 }
 
 .question[data-answer="true"] .answer-true {
