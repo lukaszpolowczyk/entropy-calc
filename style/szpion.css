@@ -114,7 +114,7 @@ input[data-incorrect-value] {
 	border-color: silver #efefef;*/
 }
 
-column-title {
+.column-title {
 	margin: 0px 0px 6px;
 	font-size: 16px;
 	font-family: "DejaVu Serif";
