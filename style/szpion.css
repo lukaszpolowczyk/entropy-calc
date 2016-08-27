@@ -3,6 +3,11 @@
 	display: flex;
 }
 
+.answers {
+	border: 1px solid #c9c5c5;
+	border-width: 0 0 2px 0;
+}
+
 .common-questions {
 	border-right: 1px solid silver;
 	margin-right: 20px;
@@ -70,6 +75,18 @@ input[data-incorrect-value] {
 	width: 215px;
 }
 
+.answer-button {
+	cursor: pointer;
+	padding: 0 5px;
+}
+
+button {
+	border: 1px solid silver;
+	background: white none repeat scroll 0% 0%;
+	margin: 5px 0px;
+}
+
+
 .normal-text {
 	font-family: "Noto Sans";
 	border-bottom-width: 2px;
@@ -88,19 +105,8 @@ input[data-incorrect-value] {
 .field[data-bad-datas] {
 	border-color: #f54242;
 }
-
-.common-questions {
-	counter-reset: pseudoListNumbering;
-}
-.foreign-questions {
-	counter-reset: pseudoListNumbering;
-}
-.random-event::before {
-	counter-increment: pseudoListNumbering;
-	content: counter(pseudoListNumbering, decimal) ". ";
-
-	min-width: 15px;
-	text-align: right;
-	padding: 1px 0;
-	border-bottom: 2px solid transparent;
+.result {
+	border-top: 1px solid silver;
+	margin-top: 20px;
+	padding-top: 10px;
 }

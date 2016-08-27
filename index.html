@@ -66,23 +66,26 @@
 						<div class="common-interest">
 							<div class="common-text">Wspólny interes</div>
 							<div class="common-questions"></div>
+							<button class="add-common-question-button">Dodaj pytanie</button>
 						</div>
 						<div class="foreign-interest">
 							<div class="foreign-text">Obcy interes</div>
 							<div class="foreign-questions"></div>
+							<button class="add-foreigns-question-button">Dodaj pytanie</button>
 						</div>
 					</div>
-					<div class="result normal-text">Odpowiedz na własne pytania. :)</div>
+					<div class="result normal-text">Wynik: Potrzeba co najmniej jednej odpowiedzi o współny interes i conajmniej jednej o obcy interes.</div>
 				</div>
 			</template>
 			<template id="question">
 				<div class="question random-event normal-text">
 					<span class="answers">
-						<span class="answer-true">Prawda</span>/
-						<span class="answer-false">Fałsz</span>/
-						<span class="no-answer">Brak odpowiedzi</span>
+						<span class="answer-true answer-button" title="Prawda">P</span> / 
+						<span class="answer-false answer-button" title="Fałsz">F</span> / 
+						<span class="no-answer answer-button" title="Brak odpowiedzi/nieistotne pytanie">B</span>
 					</span>
-					<input type="text" title="prawdopodobieństwo zdarzenia - można wpisać od 0 włącznie do 1 włącznie" class="probability"> – <input type="text" class="description" placeholder="Opis i/lub nazwa zdarzenia losowego"> <span class="measure-uncertainty normal-text"></span>.
+					 – 
+					<input type="text" class="description" placeholder="Opis i/lub nazwa">
 				</div>
 			</template>
 		</span>

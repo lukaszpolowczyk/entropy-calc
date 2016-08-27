@@ -22,6 +22,21 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 		this.foreignQuestionsObs.push(questionF);
 		this.foreignQuestionsEl.appendChild(questionF.questionEl);
 		
+		this.addCommonQuestionButtonEl = this.szpionEl.querySelector(".add-common-question-button");
+		this.addForeignQuestionButtonEl = this.szpionEl.querySelector(".add-foreigns-question-button");
+		
+		this.addCommonQuestionButtonEl.addEventListener("click", ()=> {
+			var questionC = new Question(this);
+			this.commonQuestionsObs.push(questionC);
+			this.commonQuestionsEl.appendChild(questionC.questionEl);
+		});
+		
+		this.addForeignQuestionButtonEl.addEventListener("click", ()=> {
+			var questionF = new Question(this);
+			this.foreignQuestionsObs.push(questionF);
+			this.foreignQuestionsEl.appendChild(questionF.questionEl);
+		});
+		
 		// jeszcze funkcja automatycznego dodawania kolejnego pustego
 		// jeszcze kolor zaznaczonej odpowiedzi (atrybut .question[data-false-answer] itd)
 		// wpisanie warości prawdopodobieństwa do każdego
@@ -70,25 +85,25 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 		result = 1 - result;
 		
 		if (result > .5 && result <= 1) {
-			this.resultEl.innerHTML = `Szpion. Na ${result*100}%`;
+			this.resultEl.innerHTML = `Wynik: Szpion. Na ${result*100}%`;
 		} else
 		if (result >= 0 && result <= .5) {
-			this.resultEl.innerHTML = `Szpion. Na ${result*100}%`;
+			this.resultEl.innerHTML = `Wynik: Szpion. Na ${result*100}%`;
 		} else {
-			this.resultEl.innerHTML = "Brakujace dane lub jakiś błąd w programie.";
+			this.resultEl.innerHTML = "Wynik: Brakujace dane lub jakiś błąd w programie.";
 		}
 		
-		if (this.commonNoAnswersObsLength === 0) {
-			var questionC = new Question(this);
-			this.commonQuestionsObs.push(questionC);
-			this.commonQuestionsEl.appendChild(questionC.questionEl);
-		}
-
-		if (this.foreignNoAnswersObsLength === 0) {
-			var questionF = new Question(this);
-			this.foreignQuestionsObs.push(questionF);
-			this.foreignQuestionsEl.appendChild(questionF.questionEl);
-		}
+//		if (this.commonNoAnswersObsLength === 0) {
+//			var questionC = new Question(this);
+//			this.commonQuestionsObs.push(questionC);
+//			this.commonQuestionsEl.appendChild(questionC.questionEl);
+//		}
+//
+//		if (this.foreignNoAnswersObsLength === 0) {
+//			var questionF = new Question(this);
+//			this.foreignQuestionsObs.push(questionF);
+//			this.foreignQuestionsEl.appendChild(questionF.questionEl);
+//		}
 	};
 	
 	// zrobić klasę z questionsBlock żeby się nie duplikować tak bardzo
