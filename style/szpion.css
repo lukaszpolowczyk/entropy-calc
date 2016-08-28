@@ -103,7 +103,18 @@ input[data-incorrect-value] {
 	background-color: #f2f2f2;
 	color: #2a2a2a;
 }
+.normal-button {
+	cursor: pointer;
 
+	display: inline-block;
+	border: 1px solid silver;
+	background: white none repeat scroll 0% 0%;
+	margin: 7px 0px;
+	padding: 1px 9px;
+
+	outline: none;
+	color: #393938;
+}
 .add-question-button {
 	cursor: pointer;
 	
@@ -114,6 +125,7 @@ input[data-incorrect-value] {
 	padding: 1px 9px;
 	
 	outline: none;
+	color: #393938;
 
 	/*border-width: 2px 0px 2px 0px;
 	border-color: silver #efefef;*/
