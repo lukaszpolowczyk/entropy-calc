@@ -3,5 +3,5 @@ require( ["main/entropy", "main/szpion"], function(Entropy, Szpion) {
 
 	//new Entropy(document.querySelector('.entropys-container'));
 
-	new Szpion(document.querySelector('.szpion-container'));
+	//new Szpion(document.querySelector('.szpion-container'));
 });
