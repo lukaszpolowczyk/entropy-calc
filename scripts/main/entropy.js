@@ -65,13 +65,15 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 		});
 
 		this.numberEl.addEventListener("change", ()=> {
-			if (this.numberEl.value !== this.noZeroEventsObsLength) {
+			var nElV = Number(this.numberEl.value);
+			if (nElV !== this.noZeroEventsObsLength) {
 				this.numberEl.setAttribute("title", "Wartość niezapisana, [Enter] - zatwierdź wartość");
 				this.numberEl.setAttribute("style", "color: rgb(249, 181, 44); font-weight: bold; border-bottom-color: rgb(249, 181, 44)");
 			}
 		});
 		this.numberEl.addEventListener("input", ()=> {
-			if (this.numberEl.value !== this.noZeroEventsObsLength) {
+			var nElV = Number(this.numberEl.value);
+			if (nElV !== this.noZeroEventsObsLength) {
 				this.numberEl.setAttribute("title", "Wartość niezapisana, [Enter] - zatwierdź wartość");
 				this.numberEl.setAttribute("style", "color: rgb(249, 181, 44); font-weight: bold; border-bottom-color: rgb(249, 181, 44)");
 			}
