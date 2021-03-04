@@ -1,12 +1,13 @@
-define(["libs/libs"], function(libs) {
-	"use strict";
+// define(["libs/libs"], function(libs) {
+// 	"use strict";
+	import * as libs  from "../libs/libs.js";
 	
-	function Question (szpion) {
+	export function Question (szpion) {
 		this.szpionEl = szpion.szpionEl;
 
 		this.questionEl = libs.tempEl("question");
 
-		this.answer = "";
+		this.answer = null;
 		this.questionEl.setAttribute("data-answer", "");
 
 		this.answerTrueEl = this.questionEl.querySelector('.answer-true');
@@ -24,13 +25,13 @@ define(["libs/libs"], function(libs) {
 			szpion.count();
 		});
 		this.noAnswerEl.addEventListener('click', ()=> {
-			this.answer = "";
+			this.answer = null;
 			this.questionEl.setAttribute("data-answer", "");
 			szpion.count();
 		});
 	}
 	
 	
-	return Question;
+	// return Question;
 	
-});
+// });

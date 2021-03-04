@@ -1,7 +1,8 @@
-define(["libs/libs"], function(libs) {
-	"use strict";
+// define(["libs/libs"], function(libs) {
+// 	"use strict";
+	import * as libs from "../libs/libs.js";
 
-	function RandomEvent (entropy) {
+	export function RandomEvent (entropy) {
 		this.entropy = entropy;
 
 //		this.randomEventEl;
@@ -16,9 +17,11 @@ define(["libs/libs"], function(libs) {
 
 	RandomEvent.prototype.constructor = function () {
 		this.randomEventEl = libs.tempEl("random-event");
-		this.inputEl = this.randomEventEl.querySelector(".probability");
-		this.descriptionEl = this.randomEventEl.querySelector(".description");
+		this.inputEl = this.randomEventEl.querySelector("input.probability");
+		this.descriptionEl = this.randomEventEl.querySelector("input.description");
 		this.measureUncertaintyEl = this.randomEventEl.querySelector(".measure-uncertainty");
+		this.fromButtonEl = this.randomEventEl.querySelector(".from");
+		this.toButtonEl = this.randomEventEl.querySelector(".to");
 
 		this.inputEl.value = "";
 		this.probability = 1; // 1 - def value for one randomEvent
@@ -31,6 +34,20 @@ define(["libs/libs"], function(libs) {
 		this.inputEl.addEventListener("input", ()=> this.count());
 		this.descriptionEl.addEventListener("input", ()=> {
 			this.description = this.descriptionEl.value;
+		});
+		
+		
+		this.toButtonEl.addEventListener("click", ()=> {
+			const fromRandomEventOb = this.entropy.randomEventsObs.find((randomEventOb)=>{
+				//console.log(randomEventOb.fromButtonEl,{randomEventOb});
+				return randomEventOb.fromButtonEl.checked == true;
+			})
+			//.log({fromRandomEventOb});
+			const step = Number(this.entropy.stepEl.value);
+			this.inputEl.value = `${ libs.round(Number(Number(this.inputEl.value) + step), this.entropy.countRound) }`;
+			fromRandomEventOb.inputEl.value = `${ libs.round(fromRandomEventOb.inputEl.value - step, this.entropy.countRound) }`;
+			this.count();
+			fromRandomEventOb.count();
 		});
 	};
 
@@ -49,7 +66,7 @@ define(["libs/libs"], function(libs) {
 		var probability;
 		var test = value.split("/");
 		if (test.length === 2) {
-			probability = test[0]/test[1];
+			probability = Number(test[0])/Number(test[1]);
 			this.probability = probability;
 		} else {
 			probability = Number(value);//value*1;
@@ -73,7 +90,7 @@ define(["libs/libs"], function(libs) {
 		if (probability === 1) {
 			this.equalValue = false;
 			this.measureUncertainty = 0;
-			this.measureUncertaintyEl.innerHTML = `nieokreśloność: 0, wydarzenie pewne`;
+			this.measureUncertaintyEl.innerHTML = `nieokreśloność: 0, zdarzenie pewne`;
 			this.inputEl.removeAttribute("data-equal-value");
 			this.inputEl.removeAttribute("data-incorrect-value");
 			this.inputEl.removeAttribute("placeholder");
@@ -81,7 +98,7 @@ define(["libs/libs"], function(libs) {
 		if (probability === 0) {
 			this.equalValue = false;
 			this.measureUncertainty = 0;
-			this.measureUncertaintyEl.innerHTML = `nieokreśloność: ${this.measureUncertainty}, wydarzenie niemożliwe`;
+			this.measureUncertaintyEl.innerHTML = `nieokreśloność: ${this.measureUncertainty}, zdarzenie niemożliwe`;
 			this.inputEl.removeAttribute("data-equal-value");
 			this.inputEl.removeAttribute("data-incorrect-value");
 			this.inputEl.removeAttribute("placeholder");
@@ -100,6 +117,6 @@ define(["libs/libs"], function(libs) {
 
 	};
 
-	return RandomEvent;
+	// return RandomEvent;
 
-});
+// });

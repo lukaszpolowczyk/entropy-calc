@@ -1,35 +1,48 @@
-define( function() {
-	"use strict";
+// define( function() {
+	// "use strict";
 
-	function tempEl (tempId) {
+	export function tempEl (tempId) {
 		if ("content" in document.createElement("template")) {
-
-			var t = document.querySelector("#"+tempId);
+			
+			
+			/** @type {HTMLTemplateElement} */
+			var t = (document.querySelector("template#"+tempId));
 
 			var cloneTemp = document.importNode(t.content, true);
 
 			return cloneTemp.querySelector("."+tempId);
 		}
 	}
+	
+	export function tempElString (tempId, string) {
+		var tempEl = document.createElement("template");
+		tempEl.innerHTML = string;
+		
+		
+		/** @type {HTMLDivElement} */
+		const el = (document.importNode(tempEl.content, true).querySelector("div."+tempId));
+		return el;
+	}
 
-	function round (number, accuracy) {
+	export function round (number, accuracy) {
 		var l = Math.pow(10, accuracy);
 		return Math.round(number*l)/l;
 	}
 
-	function log (base, number) {
+	export function log (base, number) {
 		return Math.log(number)/Math.log(base);
 	}
 
-	function indeterminacy (probability, base) {
+	export function indeterminacy (probability, base) {
 		return probability*-1*log(base, probability);
 	}
 
-	return {
-		tempEl: tempEl,
-		round: round,
-		log: log,
-		indeterminacy: indeterminacy
-	};
+	// return {
+	// 	tempEl: tempEl,
+	// 	tempElString: tempElString,
+	// 	round: round,
+	// 	log: log,
+	// 	indeterminacy: indeterminacy
+	// };
 
-});
+// });

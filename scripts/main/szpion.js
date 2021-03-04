@@ -1,7 +1,15 @@
-define(["libs/libs", "main/question"], function(libs, Question) {
-	"use strict";
+// define(["libs/libs", "main/question"], function(libs, Question) {
+	// "use strict";
 	
-	function Szpion (containerEl) {
+	import * as libs from "../libs/libs.js";
+	import { loadCSSURL } from "../libs/loadcss.js";
+	import { Question } from "../main/question.js";
+	
+	export function Szpion (containerEl) {
+		containerEl.removeAttribute("hidden");
+		loadCSSURL("style/szpion.css");
+		
+		
 		this.szpionEl = libs.tempEl("szpion");
 		
 		this.commonQuestionsEl = this.szpionEl.querySelector('.common-questions');
@@ -35,7 +43,7 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 		this.addForeignQuestionButtonEl.addEventListener("click", leF);
 		
 		// wpisanie warości prawdopodobieństwa do każdego
-		// mozliwoś zmieny prawdopodobieństw ręcznie
+		// możliwość zmiany prawdopodobieństw ręcznie
 		
 		this.count();
 	}
@@ -49,7 +57,7 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 			return question.answer === false;
 		});
 		side.noAnswersObs = questionsObs.filter((question)=> {
-			return question.answer === "";
+			return question.answer === null;
 		});
 
 		side.trueAnswersObsLength = side.trueAnswersObs.length;
@@ -116,8 +124,8 @@ define(["libs/libs", "main/question"], function(libs, Question) {
 		}
 	};
 	
-	return Szpion;
+	// return Szpion;
 	
-});
-// zrobić snippeta z this.questionEl = libs.tempEl("question"); i z this.foreignQuestionsEl = this.szpionEl.querySelector('.foreign-questions'); i z obiektem który ma to i reszte też
+// });
+// zrobić snippet-a z this.questionEl = libs.tempEl("question"); i z this.foreignQuestionsEl = this.szpionEl.querySelector('.foreign-questions'); i z obiektem który ma to i resztę też
 // zrobić klasę z listą i dodawaniem do listy i elementu itd

@@ -1,7 +1,17 @@
-define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
-	"use strict";
+// define(["libs/libs", "main/random-event", "main/formula", "main/pointers-layer"], function(libs, RandomEvent, Formula, PointersLayer) {
+	// "use strict";
+	
+	import * as libs from "../libs/libs.js"
+	import { loadCSSURL } from "../libs/loadcss.js";
+	import {RandomEvent} from "../main/random-event.js"
+	import {Formula} from "../main/formula.js"
+	import {PointersLayer} from "../main/pointers-layer.js"
 
-	function Entropy (containerEl) {
+	export function Entropy (containerEl) {
+		containerEl.removeAttribute("hidden");
+		loadCSSURL("style/entropy.css");
+		loadCSSURL("style/pointers-layer.css");
+		
 		this.constructor(containerEl);
 	}
 
@@ -12,22 +22,24 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 		this.randomEventsObs = [];
 		this.randomEventsEl = this.fieldsEl.querySelector('.random-events');
 
-		this.numberEl = this.fieldsEl.querySelector('.number');
-		this.baseEl = this.fieldsEl.querySelector('.base');
+		this.numberEl = this.fieldsEl.querySelector('input.number');
+		this.baseEl = this.fieldsEl.querySelector('input.base');
 		this.entropyEl = this.fieldsEl.querySelector('.entropy');
 		this.maxEntropyEl = this.fieldsEl.querySelector('.max-entropy');
+		this.homeostatisEntropyEl = this.fieldsEl.querySelector('span.homeostasis-entropy');
+		this.stepEl = this.fieldsEl.querySelector('.step');
 
 //		this.number;
 //		this.base;
 //		this.equalVal;
 		//this.entropy;
-		this.countRound = 4;
-		this.displayRound = 3;
+		this.countRound = 6;
+		this.displayRound = 4;
 
 		this.equalEventsObs = [];
 
 		this.number = 1;
-		this.numberEl.value = this.number;
+		this.numberEl.value = `${this.number}`;
 
 		this.defBaseValue = 2;
 		this.base = this.defBaseValue;
@@ -35,7 +47,10 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 		this.baseEl.setAttribute("placeholder", `[${this.defBaseValue}]`);
 
 		this.baseEl.addEventListener("input", (e)=> {
-			var value = e.target.value;
+			/** @type {HTMLInputElement} */
+			const inputEl = (e.target);
+			
+			var value = inputEl.value;
 
 			if (value === "") {
 				this.baseEl.setAttribute("placeholder", `[${this.defBaseValue}]`);
@@ -46,7 +61,7 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 
 				var test = value.split("/");
 				if (test.length===2) {
-					this.base = test[0]/test[1];
+					this.base = Number(test[0])/Number(test[1]);
 				} else {
 					this.base = Number(value);//value*1;
 				}
@@ -79,8 +94,8 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 			}
 		});
 		this.numberEl.addEventListener("keydown", (e)=> {
-			if (e.keyCode === 13) {
-				var numberVal = this.numberEl.value;
+			if (e.code === "Enter") {
+				var numberVal = Number(this.numberEl.value);
 				var restNumberVal = numberVal - this.noZeroEventsObsLength;
 
 				for (var i = 1; i<=restNumberVal; i++) {
@@ -113,6 +128,11 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 		});
 
 		this.numberCount();
+		
+		//var indeterminacyFormula = new Formula(this, "indeterminacy-formula", "log-base", "event");
+		// var pointersLayer = new PointersLayer(this.fieldsEl);
+		
+		// pointersLayer.createPointer(indeterminacyFormula.eventEl);
 	};
 
 
@@ -139,12 +159,12 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 		restVal = libs.round(restVal, this.countRound);
 
 		if (restVal < 0) {
-			this.fieldsEl.setAttribute("data-bad-datas", "");
+			this.fieldsEl.setAttribute("data-bad-data", "");
 			this.fieldsEl.querySelector('.limit-exceeded').innerHTML = `Przekroczono limit prawdopodobieństw o ${-1*restVal}. Spodziewaj się nieprawidłowych rezultatów wszędzie.`;
 		} else
 			if (restVal === 0) {
-				this.fieldsEl.removeAttribute("data-bad-datas");
-				this.fieldsEl.querySelector('.limit-exceeded').innerHTML = `Pozostalo limitu prawdopodobieństwa: ${restVal}.`;
+				this.fieldsEl.removeAttribute("data-bad-data");
+				this.fieldsEl.querySelector('.limit-exceeded').innerHTML = `Pełne prawdopodobieństwo wynosi 1 (zostało ${restVal}, ${equalEventsObsLength}x${restVal/equalEventsObsLength})`;
 				//		// usuń puste bo niepotrzebne
 				//		this.equalEventsObs = this.equalEventsObs.filter((randomEvent)=> {
 				//			if (randomEvent.description === "") {
@@ -162,9 +182,7 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 
 			} else
 				if (restVal > 0 && restVal <= 1) {
-					this.fieldsEl.removeAttribute("data-bad-datas");
-					this.fieldsEl.querySelector('.limit-exceeded').innerHTML = `Prawdopodobieństwo rozdzielone na puste: ${restVal}.`;
-					// conajmniej jeden pusty
+					// co najmniej jeden pusty
 
 					if (equalEventsObsLength < 1) {
 						var oneEmptyRandomEvent = new RandomEvent(this);
@@ -174,11 +192,12 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 						equalEventsObsLength = 1;
 					}
 
-
+					this.fieldsEl.removeAttribute("data-bad-data");
+					this.fieldsEl.querySelector('.limit-exceeded').innerHTML = `Pełne prawdopodobieństwo wynosi 1 (zostało ${restVal}, ${equalEventsObsLength}x${restVal/equalEventsObsLength})`;
 
 
 				} else {
-					this.fieldsEl.setAttribute("data-bad-datas", "");
+					this.fieldsEl.setAttribute("data-bad-data", "");
 					this.fieldsEl.querySelector('.limit-exceeded').innerHTML = `Nieprawidłowe dane. Spodziewaj się nieprawidłowych rezultatów wszędzie.`;
 				}
 		// i rozdzielić prawdopodobieństwa
@@ -190,10 +209,10 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 			var result;
 			if (probability === 0) {
 				result = 0;
-				randomEvent.measureUncertaintyEl.innerHTML = `nieokreśloność: ${result}, wydarzenie niemożliwe`;
+				randomEvent.measureUncertaintyEl.innerHTML = `nieokreśloność: ${result}, zdarzenie niemożliwe`;
 			} else if (probability === 1) {
 				result = 0;
-				randomEvent.measureUncertaintyEl.innerHTML = `nieokreśloność: ${result}, wydarzenie pewne`;
+				randomEvent.measureUncertaintyEl.innerHTML = `nieokreśloność: ${result}, zdarzenie pewne`;
 			} else {
 				result = libs.indeterminacy(probability, this.base);
 				result = libs.round(result, this.displayRound);
@@ -218,16 +237,22 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 		this.noZeroEventsObsLength = this.noZeroEventsObs.length;
 
 		this.number = this.noZeroEventsObsLength;
-		this.numberEl.value = this.number;
+		this.numberEl.value = `${this.number}`;
 
 		var maxEntropy = libs.round(libs.indeterminacy(1/this.noZeroEventsObsLength, this.base), this.displayRound)*this.noZeroEventsObsLength;
 		maxEntropy = libs.round(maxEntropy, this.displayRound);
 
-		this.maxEntropyEl.innerHTML = maxEntropy;
+		this.maxEntropyEl.innerHTML = `${maxEntropy}`;
+		this.homeostatisEntropyEl.innerHTML = `${maxEntropy/2}`;
+		if (this.entropy >  maxEntropy/2) this.homeostatisEntropyEl.style.color = "green";
+		if (this.entropy ==  maxEntropy/2) this.homeostatisEntropyEl.style.color = "blue";
+		if (this.entropy <  maxEntropy/2) this.homeostatisEntropyEl.style.color = "red";
 	};
 
 
-
+	
+	
+	
 
 	// bug: gdy .000001
 	// wpisać maksymalną entropię i może procent entropii
@@ -236,13 +261,13 @@ define(["libs/libs", "main/random-event"], function(libs, RandomEvent) {
 	// dodawanie kolejnych paneli
 	// łączenie paneli w wykres
 	// charts
-	// zwijanie charts, zwijanie listy wydarzeń losowych
+	// zwijanie charts, zwijanie listy zdarzeń losowych
 	// przycisk zapisz do json
 
 
-	// przycisk "Tryb nauki" - To jest nauki o Entripii i Ilosci informacji a nie obsługi tego programu. jak klikniesz to pojawiają się dodatkowe informacje (wzory, szersze opisy), oraz przycisk "Start/Następne" - który przeprowadza przez krótki kurs omawiający wszystko zgodnie z lekcją "Pojęcie Entropii", z przykładami (sam się załaduje albo każe go załadować "uczniowi"), opisy w tooltipach, zakreślenie omawianych elementów itd.
+	// przycisk "Tryb nauki" - To jest nauki o Entropii i Ilosci informacji a nie obsługi tego programu. jak klikniesz to pojawiają się dodatkowe informacje (wzory, szersze opisy), oraz przycisk "Start/Następne" - który przeprowadza przez krótki kurs omawiający wszystko zgodnie z lekcją "Pojęcie Entropii", z przykładami (sam się załaduje albo każe go załadować "uczniowi"), opisy w tooltip-ach, zakreślenie omawianych elementów itd.
 
 
-	return Entropy;
+	// return Entropy;
 
-});
+// });

@@ -1,7 +1,16 @@
-require( ["main/entropy"/*, "main/szpion"*/], function(Entropy/*, Szpion*/) {
-	"use strict";
+// require( ["main/entropy"/*, "main/szpion"*/], function(Entropy/*, Szpion*/) {
+	// "use strict";
 
-	new Entropy(document.querySelector('.entropys-container'));
+import {Entropy} from "./main/entropy.js";
+import {Szpion} from "./main/szpion.js";
 
-	//new Szpion(document.querySelector('.szpion-container'));
-});
+let params = (new URL(String(document.location))).searchParams;
+let isSzpion = params.has('szpion');
+
+if (isSzpion) {
+	new Szpion(document.querySelector('.szpion-container'));
+} else {
+	new Entropy(document.querySelector('.entropy-container'));
+}
+
+// });

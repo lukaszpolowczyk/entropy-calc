@@ -19,8 +19,8 @@
 	color: #9e9e9e;
 }
 
-.common-questions {
-}
+/* .common-questions {
+} */
 
 .separator {
 	width: 1px;
@@ -145,14 +145,14 @@ input[data-incorrect-value] {
 }
 
 
-.field[data-bad-datas] .limit-exceeded {
+.field[data-bad-data] .limit-exceeded {
 	color: #f54242;
 }
 
 .field {
 	border: 5px dotted transparent;
 }
-.field[data-bad-datas] {
+.field[data-bad-data] {
 	border-color: #f54242;
 }
 .result {
